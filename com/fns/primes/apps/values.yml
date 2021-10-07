@@ -1,5 +1,6 @@
 #@data/values
 ---
-svc_port: 8080
+namespace: apps
+svc_port: 80
 app_port: 8080
 wavefront_proxy_url: "proxy://wavefront-proxy-tanzu.tanzu-observability-saas.svc.cluster.local:2878"
