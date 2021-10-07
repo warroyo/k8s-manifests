@@ -40,15 +40,12 @@ spec:
         ports:
           - containerPort: 8080
         livenessProbe:
-          # Liveness probe is used to check if this app is still ready to serve traffic
-          # (after it is marked as "ready").
           httpGet:
             port: 8080
             path: /actuator/health
           initialDelaySeconds: 60
           periodSeconds: 2
         readinessProbe:
-          # Readiness probe is used to check if this app is ready to serve traffic.
           httpGet:
             port: 8080
             path: /actuator/health
