@@ -1,0 +1,59 @@
+#@ load("@ytt:data", "data")
+
+#@ def labels():
+console-availability-client: ""
+#@ end
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: #@ data.values.namespace
+  name: console-availability-client
+spec:
+  ports:
+  - port: #@ data.values.svc_port
+    targetPort: #@ data.values.app_port
+  selector: #@ labels()
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: #@ data.values.namespace
+  name: console-availability-client
+spec:
+  selector:
+    matchLabels: #@ labels()
+  template:
+    metadata:
+      labels: #@ labels()
+    spec:
+      imagePullSecrets:
+      - name: registry-credentials
+      containers:
+      - name: console-availability-client
+        image: harbor.lab.zoolabs.me/apps/client@sha256:284e6440b5596de5f9aa290d14fae4e05fa692b4d0702c1f068481edb707f2b2
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 1Gi
+        ports:
+          - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health
+          initialDelaySeconds: 60
+          periodSeconds: 2
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health
+          initialDelaySeconds: 15
+        env:
+        - name: WAVEFRONT_APPLICATION_NAME
+          value: console-availability-client
+        - name: WAVEFRONT_APPLICATION_SERVICE
+          value: console-availability
+        - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
+          value: #@ data.values.wavefront_proxy_url
