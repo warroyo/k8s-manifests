@@ -33,6 +33,26 @@ spec:
       containers:
       - name: primes-dev
         image: harbor.lab.zoolabs.me/apps/primes@sha256:9d06cbf458794d3b652501db72d4a364bbec44442bc6b47622501962ae000656
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 1Gi
+        ports:
+          - containerPort: 8080
+        livenessProbe:
+          # Liveness probe is used to check if this app is still ready to serve traffic
+          # (after it is marked as "ready").
+          httpGet:
+            port: 8080
+            path: /actuator/health
+          initialDelaySeconds: 60
+          periodSeconds: 2
+        readinessProbe:
+          # Readiness probe is used to check if this app is ready to serve traffic.
+          httpGet:
+            port: 8080
+            path: /actuator/health
+          initialDelaySeconds: 15
         env:
         - name: WAVEFRONT_APPLICATION_NAME
           value: primes-dev
