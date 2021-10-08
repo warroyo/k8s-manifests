@@ -1,7 +1,7 @@
 #@ load("@ytt:data", "data")
 
 #@ def labels():
-console-availability-server: ""
+console-availability-service: ""
 #@ end
 
 ---
@@ -9,7 +9,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: #@ data.values.namespace
-  name: console-availability-server
+  name: console-availability-service
 spec:
   ports:
   - port: #@ data.values.svc_port
@@ -20,7 +20,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: #@ data.values.namespace
-  name: console-availability-server
+  name: console-availability-service
 spec:
   selector:
     matchLabels: #@ labels()
@@ -31,8 +31,8 @@ spec:
       imagePullSecrets:
       - name: registry-credentials
       containers:
-      - name: console-availability-server
-        image: harbor.lab.zoolabs.me/apps/server@sha256:34b48180197d36a6aa0c5c8ecfd7c8fba1564cad42825b17804410ae6c85e9d6
+      - name: console-availability-service
+        image: harbor.lab.zoolabs.me/apps/service@sha256:5305fb75cb2b50f1f46bbab2deee47d8be2da872ceab3616b669eadeb9d332d5
         imagePullPolicy: Always
         resources:
           limits:
@@ -52,8 +52,6 @@ spec:
           initialDelaySeconds: 15
         env:
         - name: WAVEFRONT_APPLICATION_NAME
-          value: console-availability-server
-        - name: WAVEFRONT_APPLICATION_SERVICE
           value: console-availability
         - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
           value: #@ data.values.wavefront_proxy_url
