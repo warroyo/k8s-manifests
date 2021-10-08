@@ -32,7 +32,7 @@ spec:
       - name: registry-credentials
       containers:
       - name: console-availability-client
-        image: harbor.lab.zoolabs.me/apps/client@sha256:430a7c2eae11fa5af51607c2a9aae17d0ee38993b65c005f8fe4f388e55b797f
+        image: harbor.lab.zoolabs.me/apps/client@sha256:6e36f02f1ac02e5a68f53c9c833a1f0e5c250da3b7ef8100b087916548deb530
         imagePullPolicy: Always
         resources:
           limits:
