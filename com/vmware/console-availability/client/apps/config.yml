@@ -32,8 +32,8 @@ spec:
       - name: registry-credentials
       containers:
       - name: console-availability-client
-        image: harbor.lab.zoolabs.me/apps/client@sha256:c6643acda741091dc4ede4336c13e30f363dc1fbbf5719049fc3aec98a1bc065
-        imagePullPolicy: IfNotPresent
+        image: harbor.lab.zoolabs.me/apps/client@sha256:bfebe71df127b4ae6fbe56b4bd7d0e19b392f7e5ca17e677e2825def6016d244
+        imagePullPolicy: Always
         resources:
           limits:
             memory: 1Gi
@@ -58,6 +58,6 @@ spec:
         - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
           value: #@ data.values.wavefront_proxy_url
         - name: CONSOLE_SERVER_HOSTNAME
-          value: console-availability-server.apps.svc.cluster.local
+          value: console-availability-server
         - name: CONSOLE_SERVER_PORT
           value: 80
