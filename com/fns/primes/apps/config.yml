@@ -2,6 +2,7 @@
 
 #@ def labels():
 primes-dev: ""
+app: "primes-dev"
 #@ end
 
 ---
