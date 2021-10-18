@@ -17,6 +17,7 @@ spec:
   - name: primes-port
     protocol: TCP
     port: #@ data.values.svc_port
+    targetPort:  #@ data.values.app_port
   selector: #@ labels()
 ---
 apiVersion: apps/v1
@@ -49,11 +50,6 @@ spec:
             path: /actuator/health
           initialDelaySeconds: 60
           periodSeconds: 2
-        readinessProbe:
-          httpGet:
-            port: 8080
-            path: /actuator/health
-          initialDelaySeconds: 15
         env:
         - name: WAVEFRONT_APPLICATION_NAME
           value: primes-dev
