@@ -14,7 +14,7 @@ metadata:
   name: primes-dev
 spec:
   ports:
-  - port: #@ data.values.app_port
+  - port: #@ data.values.svc_port
     protocol: TCP
     name: primes-port
   selector: #@ labels()
