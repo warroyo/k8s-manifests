@@ -14,8 +14,9 @@ metadata:
   name: primes-dev
 spec:
   ports:
-  - port: #@ data.values.svc_port
-    targetPort: #@ data.values.app_port
+  - port: #@ data.values.app_port
+    protocol: TCP
+    name: primes-port
   selector: #@ labels()
 ---
 apiVersion: apps/v1
@@ -41,6 +42,7 @@ spec:
             memory: 1Gi
         ports:
           - containerPort: 8080
+            name: primes-port
         livenessProbe:
           httpGet:
             port: 8080
