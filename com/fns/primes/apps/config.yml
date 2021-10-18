@@ -16,6 +16,7 @@ spec:
   ports:
   - port: #@ data.values.svc_port
     protocol: TCP
+    targetPort:  #@ data.values.app_port
     name: primes-port
   selector: #@ labels()
 ---
