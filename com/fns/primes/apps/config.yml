@@ -3,6 +3,7 @@
 #@ def labels():
 primes-dev: ""
 app: "primes-dev"
+service: primes-dev
 #@ end
 
 ---
