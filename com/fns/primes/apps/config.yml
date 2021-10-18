@@ -16,7 +16,7 @@ spec:
   ports:
   - name: primes-port
     protocol: TCP
-    port: #@ data.values.app_port
+    port: #@ data.values.svc_port
   selector: #@ labels()
 ---
 apiVersion: apps/v1
