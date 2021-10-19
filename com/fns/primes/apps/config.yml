@@ -17,7 +17,7 @@ spec:
   - port: #@ data.values.svc_port
     protocol: TCP
     targetPort:  #@ data.values.app_port
-    name: primes-port
+    name: http-prime
   selector: #@ labels()
 ---
 apiVersion: apps/v1
@@ -44,7 +44,7 @@ spec:
             memory: 1Gi
         ports:
           - containerPort: 8080
-            name: primes-port
+            name: http-prime
         livenessProbe:
           httpGet:
             port: 8080
