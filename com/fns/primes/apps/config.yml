@@ -14,7 +14,7 @@ metadata:
   name: primes-dev
 spec:
   ports:
-  - name: primes-port
+  - name: http-prime
     protocol: TCP
     port: #@ data.values.svc_port
     targetPort:  #@ data.values.app_port
@@ -44,7 +44,7 @@ spec:
             memory: 1Gi
         ports:
           - containerPort: 8080
-            name: primes-port
+            name: http-prime
         livenessProbe:
           httpGet:
             port: 8086
