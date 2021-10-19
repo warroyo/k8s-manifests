@@ -25,6 +25,7 @@ kind: Deployment
 metadata:
   namespace: #@ data.values.namespace
   name: primes-dev
+  labels: #@ labels()
 spec:
   selector:
     matchLabels: #@ labels()
