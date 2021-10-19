@@ -2,7 +2,7 @@
 
 #@ def labels():
 primes-dev: ""
-app: "primes-dev"
+app: "primes"
 service: primes-dev
 #@ end
 
